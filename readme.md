@@ -50,6 +50,9 @@ plt.show()
 
 This creates the figure saved in [sample6PyPlot.png](sample6PyPlot.png).
 
+![MatPlotLib Boxplot](sample6PyPlot.png)
+
+
 ## R and Base Plot ##
 
 R can also produce a boxplot with just a few lines.
@@ -75,3 +78,5 @@ dev.off()
 ```
 
 This R sample produced the plot in [sample6RPlot.png](sample6RPlot.png).
+
+![R Base Plot Boxplot](sample6RPlot.png)
