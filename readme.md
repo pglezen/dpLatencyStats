@@ -8,10 +8,10 @@ this stats repository addresses statistical exploratory analysis on a
 collection of log entries.
 
 The first step is to get the lateny log entries into a form amenable to
-most statistical analsys software.  One normally can't go wrong with CSV
+most statistical analysis software.  One normally can't go wrong with CSV
 files and that's what we do here - with [Python](https://www.python.org).
 This repository comes with a sample raw latency file
-[sample6.log](sample6.log) on which you can test the code.  
+[sample6.log](sample6.log) on which you can test the code.
 Note that this log contains entries from a MultiProtocol Gateway (MPGW).
 Web Service Proxy (WSP) look a little different.
 
@@ -28,7 +28,7 @@ demonstrated in both [R](https://www.r-project.org/) and
 The Python/Pandas demo can be viewed end-to-end using a Jupyter notebook
 viewer.  Fortunately, GitHub happens to have a very good one embedded
 natively (be sure your JavaScript is enabled).  Just click on the link
-for [DPLatency.ipynb](DPLatency.ipyng).
+for [DPLatency.ipynb](DPLatency.ipynb).
 
 Reading in the CSV and making a box plot is pretty easy as demonstrated
 in [latencyBoxplot.py](latencyBoxplot.py).
@@ -74,4 +74,4 @@ boxplot(df$Latency ~ df$uri, col='bisque', border='blue',
 dev.off()
 ```
 
-This R sample produced the plot in [sample6RPlot.png](sample6Rplot.png).
+This R sample produced the plot in [sample6RPlot.png](sample6RPlot.png).
