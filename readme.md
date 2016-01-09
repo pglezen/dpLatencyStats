@@ -80,3 +80,85 @@ dev.off()
 This R sample produced the plot in [sample6RPlot.png](sample6RPlot.png).
 
 ![R Base Plot Boxplot](sample6RPlot.png)
+
+How significant are the differences in medians listed on the boxplots?  
+They did, after all, come from the same distribution.  Let's see what
+ANOVA has to say.
+
+```
+> latency.lm <- lm(Latency ~ uri, data=df)
+> anova(latency.lm)
+Analysis of Variance Table
+
+Response: Latency
+           Df    Sum Sq Mean Sq F value Pr(>F)
+uri         4   2316107  579027  1.4928 0.2043
+Residuals 295 114421644  387870
+```
+
+The F value is pretty low, which means, as we should expect, that these
+differences are **not** significant.
+
+Note the ANOVA "sniffed this out" despite the fact that the ANOVA
+assumptions were poorly fulfilled.  In particular, the variance within
+each group was not normal (I used a JMeter uniform distribution sampler).
+The Shapiro-Wilk normality test applied to each uri gives the following.
+
+```
+> tapply(residuals(latency.lm), df$uri, shapiro.test)
+$`/request1`
+
+	Shapiro-Wilk normality test
+
+data:  X[[i]]
+W = 0.85181, p-value = 3.447e-06
+
+
+$`/request2`
+
+	Shapiro-Wilk normality test
+
+data:  X[[i]]
+W = 0.94034, p-value = 0.006704
+
+
+$`/request3`
+
+	Shapiro-Wilk normality test
+
+data:  X[[i]]
+W = 0.91738, p-value = 0.000387
+
+
+$`/request4`
+
+	Shapiro-Wilk normality test
+
+data:  X[[i]]
+W = 0.91801, p-value = 0.0007981
+
+
+$`/request5`
+
+	Shapiro-Wilk normality test
+
+data:  X[[i]]
+W = 0.91067, p-value = 0.0003297
+```
+
+I didn't expect such high Shapiro-Wilk scores for distributions
+which are clearly not normal, much less with such extreme p-values.
+Check out the histograms that I produced with
+
+```R
+laturi <- split(df$Latency, dfuri)
+for (uriStr in names(laturi)) {
+  hist(laturi[[uriStr]], main=uriStr, xlab=uriStr)
+}
+```
+
+![Group Distibutions](uriHist.png)
+
+Perhaps this is because of the small data sample.  I intend to
+run this experiment later with 1,000s of samples rather than
+just a few dozen.
